@@ -21,7 +21,9 @@ rader_pos,...
 rader_Rmax,...
 rader_boold_min,...
 target,...
-num_radars] = fun_params();
+num_radars,...
+radar_models,...
+enemy_weapon] = fun_params();
 
 % global pos_detected_x;
 % global pos_detected_y;
@@ -35,7 +37,8 @@ number = size(states,2);
 position = states(1:2,:);
 velocity = states(4:5,:);
 
-radar_models = "AN/MPQ-53";
+radar_models = strcat(radar_models);
+%radar_model = 'AN/MPQ-53';
 uav_positions = states(1:3,:)';
 
 [~, all_pos_detected] = detect_UAVs(terrain, num_radars, radar_models, rader_pos', uav_positions); %all_pos_detected为n行3列
@@ -63,7 +66,7 @@ if isempty(blood) || t==0
 end
 
 
-enemy_weapon = 'HELMTT';
+enemy_weapon = strcat(enemy_weapon);
 
 % Define damage values for different weapons
 damage_values = containers.Map({'HELMTT', 'HELTVD', 'IFPC-HEL'}, [100*sample_time/52.178, 100*sample_time/1.0073, 100*sample_time/0.00107]);
@@ -149,7 +152,7 @@ function [all_detected_UAVs, all_pos_detected] = detect_UAVs(terrain, num_radars
     % 创建雷达和无人机对象
     radars = cell(1, num_radars);
     for i = 1:num_radars
-        radars{i} = Radar(radar_positions(i, :), radar_models{i});
+        radars{i} = Radar(radar_positions(i, :), radar_models);
     end
 
     % 创建障碍物（无人机）对象

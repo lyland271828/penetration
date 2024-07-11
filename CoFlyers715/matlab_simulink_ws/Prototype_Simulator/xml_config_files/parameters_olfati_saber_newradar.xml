@@ -152,7 +152,8 @@
             <rader_boold_min value="20"/>
             <target value="[300;-10;120]"/>
             <num_radars value="1"/>
-          <!--  <radar_models value="AN/MPQ-53"/> -->
+            <radar_models value="'AN/MPQ-53'"/>
+            <enemy_weapon value="'HELMTT'"/>
         </Penetration>
     </evaluation>
         
